@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Zikula component\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2011-03-28 16:00+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2011-03-31 11:12+0100\n"
+"Last-Translator: Fabian Wuertz <xadras@sidux.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -39,16 +38,14 @@ msgstr ""
 
 #: lib/AddressBook/Version.php:20
 msgid "Address book"
-msgstr ""
+msgstr "Addressbuch"
 
 #: lib/AddressBook/Version.php:21
 msgid "addressbook"
 msgstr ""
 
 #: lib/AddressBook/Version.php:23
-msgid ""
-"A name and address book (NAB) is for storing entries called contacts. Each "
-"contact entry usually consists of a few standard fields."
+msgid "A name and address book (NAB) is for storing entries called contacts. Each contact entry usually consists of a few standard fields."
 msgstr ""
 
 #: lib/AddressBook/Controller/Ajax2.php:21
@@ -81,23 +78,23 @@ msgstr ""
 msgid "Error! Could not load addresses."
 msgstr ""
 
-#: lib/AddressBook/Api/Admin.php:22 templates/admin/labels_view.tpl:3
+#: lib/AddressBook/Api/Admin.php:22
+#: templates/admin/labels_view.tpl:3
 msgid "Contact labels"
 msgstr ""
 
-#: lib/AddressBook/Api/Admin.php:29 templates/admin/customfield_edit.tpl:10
+#: lib/AddressBook/Api/Admin.php:29
+#: templates/admin/customfield_edit.tpl:10
 #: templates/admin/customfield_view.tpl:7
 msgid "Custom fields"
 msgstr ""
 
 #: lib/AddressBook/Api/Admin.php:36
 msgid "Settings"
-msgstr ""
+msgstr "Einstellungen"
 
 #: lib/AddressBook/Handler/ModifyConfig.php:57
-msgid ""
-"Error! Both fields must contain the same number of characters - Special "
-"character replacement was NOT saved!"
+msgid "Error! Both fields must contain the same number of characters - Special character replacement was NOT saved!"
 msgstr ""
 
 #: lib/AddressBook/Handler/ModifyConfig.php:61
@@ -122,81 +119,95 @@ msgstr ""
 msgid "Upload"
 msgstr ""
 
-#: templates/user/importVCard.tpl:16 templates/user/modify.tpl:50
-#: templates/admin/labels_edit.tpl:34 templates/admin/delete.tpl:27
-#: templates/admin/customfield_edit.tpl:52 templates/admin/modifyconfig.tpl:76
+#: templates/user/importVCard.tpl:16
+#: templates/user/modify.tpl:50
+#: templates/admin/labels_edit.tpl:34
+#: templates/admin/delete.tpl:27
+#: templates/admin/customfield_edit.tpl:52
+#: templates/admin/modifyconfig.tpl:76
 msgid "Cancel"
-msgstr ""
+msgstr "Abbrechen"
 
 #: templates/user/view.tpl:11
 msgid "Show private contacts only"
 msgstr ""
 
-#: templates/user/view.tpl:15 templates/admin/delete.tpl:5
+#: templates/user/view.tpl:15
+#: templates/admin/delete.tpl:5
 msgid "Category"
-msgstr ""
+msgstr "Kategorie"
 
 #: templates/user/view.tpl:16
 msgid "All"
-msgstr ""
+msgstr "Alle"
 
-#: templates/user/view.tpl:26 templates/user/view.tpl:30
+#: templates/user/view.tpl:26
+#: templates/user/view.tpl:30
 msgid "Search"
-msgstr ""
+msgstr "Suchen"
 
 #: templates/user/view.tpl:39
 msgid "New entry"
-msgstr ""
+msgstr "Neuer Eintrag"
 
-#: templates/user/view.tpl:56 templates/admin/labels_edit.tpl:27
+#: templates/user/view.tpl:56
+#: templates/admin/labels_edit.tpl:27
 #: templates/admin/delete.tpl:20
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
-#: templates/user/view.tpl:58 templates/user/view.tpl:114
+#: templates/user/view.tpl:58
+#: templates/user/view.tpl:114
 #: templates/user/modify.tpl:29
 msgid "Organisation"
-msgstr ""
+msgstr "Organisation"
 
-#: templates/user/view.tpl:59 templates/user/view.tpl:102
+#: templates/user/view.tpl:59
+#: templates/user/view.tpl:102
 #: templates/user/modify.tpl:39
 msgid "Phone"
-msgstr ""
+msgstr "Telefon"
 
-#: templates/user/view.tpl:60 templates/user/view.tpl:106
+#: templates/user/view.tpl:60
+#: templates/user/view.tpl:106
 #: templates/user/modify.tpl:34
 msgid "E-Mail"
-msgstr ""
+msgstr "E-Mail"
 
-#: templates/user/view.tpl:61 templates/admin/labels_view.tpl:16
+#: templates/user/view.tpl:61
+#: templates/admin/labels_view.tpl:16
 #: templates/admin/customfield_view.tpl:17
 msgid "Action"
-msgstr ""
+msgstr "Aktion"
 
 #: templates/user/view.tpl:84
 msgid "View"
-msgstr ""
+msgstr "Details"
 
-#: templates/user/view.tpl:90 templates/user/modify.tpl:19
+#: templates/user/view.tpl:90
+#: templates/user/modify.tpl:19
 msgid "Nick name"
-msgstr ""
+msgstr "Spitzname"
 
 #: templates/user/view.tpl:94
 msgid "Birthday"
-msgstr ""
+msgstr "Geburtstag"
 
-#: templates/user/view.tpl:118 templates/user/modify.tpl:44
+#: templates/user/view.tpl:118
+#: templates/user/modify.tpl:44
 msgid "Role"
-msgstr ""
+msgstr "Role"
 
-#: templates/user/view.tpl:126 templates/user/modify.tpl:24
+#: templates/user/view.tpl:126
+#: templates/user/modify.tpl:24
 msgid "Note"
-msgstr ""
+msgstr "Notiz"
 
-#: templates/user/view.tpl:141 templates/admin/labels_view.tpl:27
+#: templates/user/view.tpl:141
+#: templates/admin/labels_view.tpl:27
 #: templates/admin/customfield_view.tpl:28
 msgid "Edit"
-msgstr ""
+msgstr "Bearbeiten"
 
 #: templates/user/view.tpl:152
 msgid "No address found."
@@ -204,17 +215,19 @@ msgstr ""
 
 #: templates/user/modify.tpl:8
 msgid "First name"
-msgstr ""
+msgstr "Vorname"
 
 #: templates/user/modify.tpl:14
 msgid "Last name"
-msgstr ""
+msgstr "Nachname"
 
-#: templates/user/modify.tpl:49 templates/admin/modifyconfig.tpl:75
+#: templates/user/modify.tpl:49
+#: templates/admin/modifyconfig.tpl:75
 msgid "Save"
-msgstr ""
+msgstr "Speichern"
 
-#: templates/admin/labels_edit.tpl:9 templates/admin/labels_view.tpl:14
+#: templates/admin/labels_edit.tpl:9
+#: templates/admin/labels_view.tpl:14
 #: templates/admin/delete.tpl:6
 msgid "Contact label"
 msgstr ""
@@ -227,7 +240,8 @@ msgstr ""
 msgid "Add contact label"
 msgstr ""
 
-#: templates/admin/labels_edit.tpl:33 templates/admin/customfield_edit.tpl:51
+#: templates/admin/labels_edit.tpl:33
+#: templates/admin/customfield_edit.tpl:51
 msgid "Create"
 msgstr ""
 
@@ -235,14 +249,17 @@ msgstr ""
 msgid "Add new contact label"
 msgstr ""
 
-#: templates/admin/labels_view.tpl:13 templates/admin/customfield_view.tpl:14
+#: templates/admin/labels_view.tpl:13
+#: templates/admin/customfield_view.tpl:14
 msgid "ID"
 msgstr ""
 
-#: templates/admin/labels_view.tpl:28 templates/admin/delete.tpl:4
-#: templates/admin/delete.tpl:26 templates/admin/customfield_view.tpl:30
+#: templates/admin/labels_view.tpl:28
+#: templates/admin/delete.tpl:4
+#: templates/admin/delete.tpl:26
+#: templates/admin/customfield_view.tpl:30
 msgid "Delete"
-msgstr ""
+msgstr "Löschen"
 
 #: templates/admin/delete.tpl:7
 msgid "Prefix"
@@ -343,4 +360,5 @@ msgstr ""
 
 #: templates/search/addressbook_search_options.html:5
 msgid "Address Book"
-msgstr ""
+msgstr "Addressbuch"
+
