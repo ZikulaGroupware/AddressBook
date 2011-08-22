@@ -15,6 +15,8 @@
 /**
  * This is the model class that define the entity structure and behaviours.
  */
+
+
 class AddressBook_Model_Addresses extends Doctrine_Record
 {
     /**
@@ -24,30 +26,39 @@ class AddressBook_Model_Addresses extends Doctrine_Record
      */
     public function setTableDefinition()
     {
-        $this->setTableName('adddressbook_addresses');
+        $this->setTableName('addressbook');
         $this->hasColumn('pid',   'integer', 16, array(
             'unique'  => true,
             'primary' => true,
             'notnull' => true,
             'autoincrement' => true,
         ));
+        
+        // personal
         $this->hasColumn('lastname',         'string',  64);
+        $this->hasColumn('additionalname',   'string',  64);
         $this->hasColumn('firstname',        'string',  64);
-        $this->hasColumn('title',            'string',  64);
         $this->hasColumn('nickname',         'string',  64);
-        $this->hasColumn('note',             'string',  64);
-        $this->hasColumn('organisation',     'string',  64);
-        $this->hasColumn('categories',       'string', 255);
         $this->hasColumn('role',             'string',  64);
+        $this->hasColumn('organisation',     'string',  64);
+        $this->hasColumn('title',            'string',  64);
+
+        // contact
+        $this->hasColumn('homepage',         'string',  64);
+        $this->hasColumn('emails',           'array');
+        $this->hasColumn('phones',           'array');
+        $this->hasColumn('addresses',        'array');
+        
+        // dates
         $this->hasColumn('bday',             'date');
+        $this->hasColumn('anniversary',      'date');
+
+        // others
+        $this->hasColumn('note',             'string',  64);
+        $this->hasColumn('categories',       'array');
         $this->hasColumn('cr_uid',           'integer', 16);
-        $this->hasColumn('private',          'integer',  1);
-        $this->hasColumn('address_home',     'string', 255);
-        $this->hasColumn('address_work',     'string', 255);
-        $this->hasColumn('email',            'string',  64);
-        $this->hasColumn('phone_home',       'string',  64);
-        $this->hasColumn('phone_work',       'string',  64);
-        $this->hasColumn('phone_mobile',     'string',  64); 
+        $this->hasColumn('private',          'boolean');
+        $this->hasColumn('custom_fields',    'array');
 
         
     }

@@ -65,12 +65,12 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         }
         if(!empty($category)) {
             $q->addWhere(
-                'categories like ? or categories like ? or categories like ?  or categories = ?',
-                array('%,'.$category.',%', $category.',%', '%,'.$category, $category)
+                'categories like ?',
+                '%:"'.$category.'";%'
             );
         }
-      
-        return $q->execute();
+        $addresses = $q->execute()->toArray();
+        return $addresses;
     }
     
     
@@ -89,16 +89,15 @@ class AddressBook_Api_User extends Zikula_AbstractApi
     {
         $q = Doctrine_Query::create()->from('AddressBook_Model_Addresses s');      
         $result = $q->execute();
-        $result = $result->toKeyValueArray('categories', 'categories');
+        $result->toArray();        
+
         $categories = array();
         foreach($result as $value) {
-            $categories0 =  explode(',',$value);
-            foreach($categories0 as $value2) {
-                if(!empty($value2) and !array_key_exists($value, $categories)) {
-                    $categories[$value2] = $value2;
-                }
-            }
+            $categories =  array_merge($categories,$value['categories']);
         }
+        $categories = array_unique($categories);
+        sort($categories);
+        
         return $this->toDropDownList($categories);
     }
     
@@ -109,10 +108,12 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         );
         
         foreach($input as $key => $value) {
-            $dropdownlist[] = array(
-                'text' => $key,
-                'value' => $value,             
-            );
+            if(!empty($value)) {
+                $dropdownlist[] = array(
+                    'text' => $value,
+                    'value' => $value,             
+                );
+            }
         }
         return $dropdownlist;
     }

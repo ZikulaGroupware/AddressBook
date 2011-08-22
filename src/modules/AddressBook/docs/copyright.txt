@@ -1,0 +1,11 @@
+Copyright: © 2011 AddressBook development team
+
+Authors:
+    * Fabian Wuertz (main programmer)
+    * Herr.Vorragend
+
+
+The following icons are from oxygen-icon-theme
+© 2011 by Oxygen Team
+License: LGPL
+    * images/admin.png

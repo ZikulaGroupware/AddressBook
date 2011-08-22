@@ -1,3 +1,8 @@
-## AddressBook 
+AddressBook2
+============
 
-AddressBook is a Zikula module with a lot of features. A name and address book (NAB) is for storing entries called contacts. Each contact entry usually consists of a few standard fields and this module can extend a contact with several custom fields. 
+An address book for Zikula.
+
+-->Note<-- It's a alpha version. So please just use it for testing  purposes.
+
+-->Note2<-- The downward compatibility ist not ready yet! So please do not update an existing Wikula module!

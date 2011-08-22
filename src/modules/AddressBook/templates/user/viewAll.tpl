@@ -53,7 +53,6 @@
                 </a>
 
 
-                
 
                 <div id="defwindow_content_minmax_{$address.pid}" style="display:none;">
                     <table cellpadding=5>
@@ -119,7 +118,9 @@
             {/if}
             </td>
             <td>
-                {$address.categories|safehtml}</td>
+                {foreach from=$address.categories item=category name=categories} 
+                    {$category|safehtml}{if not $smarty.foreach.categories.last}, {/if} 
+                {/foreach}
             </td>
             <td class="z-nowrap">
 

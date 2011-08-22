@@ -37,7 +37,7 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
             'name' => $name, 
             'organisation' => $organisation,
             'category' => $category
-        ) );
+        ));
         
         $this->view->assign('name', $name);
         $this->view->assign('category', $category);

@@ -28,8 +28,6 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
         }
 
         $pid = FormUtil::getPassedValue('pid', isset($args['pid']) ? $args['pid'] : null, 'REQUEST');
-
-
         
         
         if(!empty($pid)) {
@@ -39,6 +37,10 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
             $address = ModUtil::apiFunc('AddressBook','user','getAddress', $pid );
             if ($address) {
                 $this->_pid = $pid;
+                $address['categories'] = implode(',', $address['categories']);
+                if(empty($address['emails'])) {
+                    $address['emails'][] = '';
+                }
                 $this->view->assign($address);
             } else {
                 return LogUtil::registerError($this->__f('Address with pid %s not found', $pid));
@@ -48,7 +50,18 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
                 return LogUtil::registerPermissionError();
             }
         }
-
+        
+        $phone_types = array(
+            0 => array(
+                'text' => 'Home',
+                'value' => 'Home'
+            ),
+            1 => array(
+                'text' => 'Work',
+                'value' => 'Work'
+            )
+        );
+        $this->view->assign('phone_types', $phone_types);
 
         return true;
     }
@@ -56,7 +69,8 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
     
     function handleCommand(Zikula_Form_View $view, &$args)
     {
-
+        
+        
         // permission check
         if (!(SecurityUtil::checkPermission('AddressBook::', '::', ACCESS_EDIT))) {
             return LogUtil::registerPermissionError();
@@ -73,8 +87,63 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
         if (!$view->isValid()) {
             return false;
         }
-        
         $data = $view->getValues();
+        
+        
+        // prepare categories array
+        $data['categories'] = explode(',', $data['categories']);
+        
+       
+        // prepare phone array
+        foreach($data['phones_numbers'] as $key => $value) {
+            if(!empty($value)){
+                $key = substr($key, 3); // remove pn_
+                $data['phones'][$key] = array(
+                    'n' => $data['phones_numbers']['pn_'.$key],
+                    't' => $data['phones_types']['pt_'.$key]
+                );
+            }
+        }
+        unset($data['phones_numbers']);
+        unset($data['phones_types']);
+        // merge new phones array
+        for ($i = 1; $i <= 3; $i++) {
+            if(!empty($data['phone_new'.$i.'_number'])) {
+                $item = array(
+                    't' => $data['phone_new'.$i.'_type'],
+                    'n' => $data['phone_new'.$i.'_number']
+                );
+                // Zikula forms have problems with the 0 key!
+                if(count($data['phones']) == 0 ) {
+                    $data['phones'][1] = $item;
+                } else {
+                    $data['phones'][] = $item;
+                }
+            }
+        }
+        
+        
+        // prepare emails array
+        foreach($data['emails'] as $key => $value) {
+            if(!empty($value)){
+                $key = substr($key, 6); // remove email_
+                $emails[$key] = $value;
+            }
+        }
+        $data['emails'] = $emails;
+        // merge new emails array
+        for ($i = 1; $i <= 3; $i++) {
+            if(!empty($data['email_new'.$i])) {
+                // Zikula forms have problems with the 0 key!
+                if(count($data['emails']) == 0 ) {
+                    $data['emails'][1] = $data['email_new'.$i];
+                } else {
+                    $data['emails'][] = $data['email_new'.$i];
+                }
+            }
+        }
+        
+        
         
         // switch between edit and create mode
         if ($this->_pid) {
@@ -87,6 +156,12 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
         $address->merge($data);
         $address->save();
         
+        
+        //print_r($data);
+         //return true;
+
+        
+        $url = ModUtil::url('AddressBook', 'user', 'modify', array('pid' => $this->_pid));
         return $view->redirect($url);
     }
 }

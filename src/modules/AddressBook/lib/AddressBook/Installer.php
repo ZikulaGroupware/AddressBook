@@ -1,18 +1,29 @@
 <?php
+
 /**
- * AddressBook
+ * Copyright AddressBook Team 2011
  *
- * @copyright (c) 2009, AddressBook Development Team
- * @link http://code.zikula.org/addressbook
- * @version $Id: pninit.php 70 2010-04-01 14:46:28Z herr.vorragend $
- * @license GNU/GPL - http://www.gnu.org/copyleft/gpl.html
- * @package AddressBook
- * @subpackage Init
+ * This work is licensed to You under the following license:
+ *
+ * @license GNU/LGPLv3 (or at your option, any later version).
+ * @package Piwik
+ * @link https://github.com/phaidon/AddressBook
+ *
+ * Please see the NOTICE file distributed with this source code for further
+ * information regarding copyright and licensing.
  */
 
-class AddressBook_Installer extends Zikula_Installer
+class AddressBook_Installer extends Zikula_AbstractInstaller
 {
 
+    /**
+     * initialise the template module
+     *
+     * This function is only ever called once during the lifetime of a particular
+     * module instance
+     * 
+     * @return boolean
+     */
     public function install()
     {
         try {
@@ -219,19 +230,24 @@ class AddressBook_Installer extends Zikula_Installer
     function uninstall()
     {
 
-        DBUtil::dropTable('addressbook_address');
-        //DBUtil::dropTable('addressbook_labels');
-        DBUtil::dropTable('addressbook_customfields');
-        DBUtil::dropTable('addressbook_favourites');
+        DoctrineUtil::dropTable('addressbook');
 
-        pnModDelVar ('AddressBook');
+        
+        
+        //DBUtil::dropTable('addressbook_address');
+        //DBUtil::dropTable('addressbook_labels');
+        //DBUtil::dropTable('addressbook_customfields');
+        //DBUtil::dropTable('addressbook_favourites');
+
+        // Delete any module variables
+        $this->delVars();
 
         // Delete entries from category registry
-        if (!pnModDBInfoLoad('Categories')) {
-            return false;
-        }
+        //if (!pnModDBInfoLoad('Categories')) {
+        //    return false;
+        //}
 
-        DBUtil::deleteWhere('categories_registry', "crg_modname='AddressBook'");
+        //DBUtil::deleteWhere('categories_registry', "crg_modname='AddressBook'");
 
         // Deletion successful
         return true;
