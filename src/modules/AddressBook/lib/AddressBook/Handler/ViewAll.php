@@ -39,6 +39,7 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
             'category' => $category
         ));
         
+                
         $this->view->assign('name', $name);
         $this->view->assign('category', $category);
         $this->view->assign('organisation', $organisation);
@@ -54,7 +55,7 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
         return true;
     }
 
- function handleCommand(Zikula_Form_View $view, &$args)
+    function handleCommand(Zikula_Form_View $view, &$args)
     {
 
         // permission check
@@ -66,8 +67,6 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
         if (!$view->isValid()) {
             return false;
         }
-        
-
         
         $data = $view->getValues();
         extract($data);

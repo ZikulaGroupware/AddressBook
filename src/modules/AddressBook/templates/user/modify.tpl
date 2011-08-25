@@ -10,10 +10,19 @@
         {formtextinput id="firstname" maxLength="64"}
     </div>
 
+    <div class="z-formrow">
+        {formlabel for="additionalname" __text="Additional name"}
+        {formtextinput id="additionalname" maxLength="64"}
+    </div>
 
     <div class="z-formrow">
         {formlabel for="lastname" __text="Last name"}
         {formtextinput id="lastname" maxLength="64"}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="bday" __text="Birthday"}
+        {formdateinput id="bday" useSelectionMode=1 ifFormat='%e. %B %Y' dateformat='%e. %B %Y'}
     </div>
 
     <div class="z-formrow">
@@ -24,6 +33,11 @@
     <div class="z-formrow">
         {formlabel for="note" __text="Note"}
         {formtextinput id="note" maxLength="64"}
+    </div>
+
+    <div class="z-formrow">
+        {formlabel for="homepage" __text="Homepage"}
+        {formurlinput id="homepage"}
     </div>
 
     <div class="z-formrow">

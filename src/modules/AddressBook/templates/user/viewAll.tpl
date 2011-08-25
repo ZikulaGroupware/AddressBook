@@ -55,44 +55,44 @@
 
 
                 <div id="defwindow_content_minmax_{$address.pid}" style="display:none;">
-                    <table cellpadding=5>
-                       <tr>
+                    <table cellpadding=5 class="z-datatable">
+                       <tr class="z-odd">
                             <td>{gt text="Nick name"}:</td>
                             <td>{$address.nickname}</td>
                        </tr>
-                       <tr>
+                       <tr class="z-even">
                             <td>{gt text="Birthday"}:</td>
                             <td>{$address.bday}</td>
                        </tr>
-                       <tr>
-                            <td colspan=2></td>
+                       <tr class="z-odd">
+                            <td>{gt text="Homepage"}:</td>
+                            <td>{$address.homepage}</td>
                        </tr>
-
-                        <tr>
+                        <tr class="z-even">
                             <td>{gt text="Phone"}:</td>
-                            <td>{$address.phone_home}</td>
+                            <td>
+                                {foreach from=$address.phones item="phone"}
+                                {$phone.t|safehtml}: {$phone.n|safehtml}<br />
+                                {/foreach}
+                            </td>
                         </tr>
-                       <tr>
+                       <tr class="z-odd">
                             <td>{gt text="E-Mail"}:</td>
-                            <td>{$address.email}</td>
+                            <td>
+                                {foreach from=$address.emails item="email"}
+                                <a href="mailto:{$email|safehtml}">{$email|safehtml}</a><br />
+                                {/foreach}
+                            </td>
                        </tr>
-                       <tr>
-                            <td colspan=2></td>
-                       </tr>
-
-                       <tr>
+                       <tr class="z-even">
                             <td>{gt text="Organisation"}:</td>
                             <td>{$address.organisation}</td>
                         </tr>
-                       <tr>
+                       <tr class="z-odd">
                             <td>{gt text="Role"}:</td>
                             <td>{$address.role}</td>
                         </tr>
-                       <tr>
-                            <td colspan=2></td>
-                       </tr>
-
-                       <tr>
+                       <tr  class="z-even">
                             <td>{gt text="Note"}:</td>
                             <td>{$address.note}</td>
                         </tr>
@@ -110,12 +110,14 @@
             </td>
             <td>{$address.organisation|safehtml}</td>
             <td>
-                {$address.phone_home|safehtml}</td>
+                {foreach from=$address.phones item="phone"}
+                {$phone.t|safehtml}: {$phone.n|safehtml}<br />
+                {/foreach}
             </td>
             <td>
-            {if $address.email}
-                <a href="mailto:{$address.email|safehtml}">{$address.email|safehtml}</a>
-            {/if}
+                {foreach from=$address.emails item="email"}
+                <a href="mailto:{$email|safehtml}">{$email|safehtml}</a><br />
+                {/foreach}
             </td>
             <td>
                 {foreach from=$address.categories item=category name=categories} 
