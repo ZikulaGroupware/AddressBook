@@ -109,14 +109,15 @@ class AddressBook_Handler_ImportCSV extends Zikula_Form_AbstractHandler
                 if($line == '') {
                     continue;
                 }
+                $address = new AddressBook_Entity_Addresses();
+
                 $entry0 = str_getcsv($line , $delimiter = ',', $enclosure = '"', $escape = '\\');
                 $entry  = array();
                 foreach($entry0 as $key => $value) {
                     $col = $cols[$key];
                     if($col == 'bday') {
                         if(!empty($value)) {
-                            $date_array = explode('.', $value);
-                            $value = $date_array[2].'-'.$date_array[1].'-'.$date_array[0];
+                            $value = new DateTime($value);
                             
                         } else {
                             $value = null;
@@ -148,12 +149,11 @@ class AddressBook_Handler_ImportCSV extends Zikula_Form_AbstractHandler
                             $data['additionalname'] = $name_array[1];
                         }
                     }
-                    $data[$col] = $value;
+                    $address->set($value, $col);
                 }
 
-               $address = new AddressBook_Model_Addresses();
-               $address->merge($data);
-               $address->save();
+                $this->entityManager->persist($address);
+                $this->entityManager->flush();
                
 
             }

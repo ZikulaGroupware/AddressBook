@@ -37,7 +37,9 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
             $address = ModUtil::apiFunc('AddressBook','user','getAddress', $pid );
             if ($address) {
                 $this->_pid = $pid;
-                $address['categories'] = implode(',', $address['categories']);
+                if(is_array($address['categories'])) {
+                    $address['categories'] = implode(',', $address['categories']);
+                }
                 if(empty($address['emails'])) {
                     $address['emails'][] = '';
                 }
@@ -69,7 +71,7 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
     
     function handleCommand(Zikula_Form_View $view, &$args)
     {
-        
+    
         
         // permission check
         if (!(SecurityUtil::checkPermission('AddressBook::', '::', ACCESS_EDIT))) {
@@ -78,20 +80,22 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
         
         $url = ModUtil::url('AddressBook', 'user', 'main');
 
-
         if ($args['commandName'] == 'cancel') {
             return $view->redirect($url);
         }
         
+
+        
         // check for valid form
-        if (!$view->isValid()) {
-            return false;
-        }
+        //if (!$view->isValid()) {
+          //return false;
+        //}
+
         $data = $view->getValues();
         
-        
+ 
         // prepare categories array
-        $data['categories'] = explode(',', $data['categories']);
+        //$data['categories'] = explode(',', $data['categories']);
         
        
         // prepare phone array
@@ -122,7 +126,8 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
             }
         }
         
-        
+                
+
         // prepare emails array
         foreach($data['emails'] as $key => $value) {
             if(!empty($value)){
@@ -142,23 +147,20 @@ class AddressBook_Handler_Modify extends Zikula_Form_AbstractHandler
                 }
             }
         }
-        
-        
+
         
         // switch between edit and create mode
         if ($this->_pid) {
-            $address = Doctrine_Core::getTable('AddressBook_Model_Addresses')->find($this->_pid);
+            $address = $this->entityManager->find('AddressBook_Entity_Addresses', $this->_pid);
         } else {
-            //$data['cr_uid'] = UserUtil::getVar('uid');
-            //$data['cr_date'] = date('Y-m-d H:i:s');
-            $address = new AddressBook_Model_Addresses();
+            $data['cr_uid'] = UserUtil::getVar('uid');
+            $data['cr_date'] = new DateTime();
+            $address = new AddressBook_Entity_Addresses();
         }
-        $address->merge($data);
-        $address->save();
+        $address->setAll($data);
+        $this->entityManager->persist($address);
+        $this->entityManager->flush();
         
-        
-        //print_r($data);
-         //return true;
 
         
         $url = ModUtil::url('AddressBook', 'user', 'modify', array('pid' => $this->_pid));

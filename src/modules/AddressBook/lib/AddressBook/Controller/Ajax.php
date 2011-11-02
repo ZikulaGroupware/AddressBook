@@ -35,8 +35,9 @@ class AddressBook_Controller_Ajax extends Zikula_AbstractController
             return;
         }
         $pid = FormUtil::getPassedValue('id', -1, 'GET');
-        $address = Doctrine_Core::getTable('AddressBook_Model_Addresses')->find($pid);
-        $address->delete();
+        $address = $this->entityManager->find('AddressBook_Entity_Addresses', $tid);
+        $this->entityManager->remove($address);
+        $this->entityManager->flush();
     }
    
 }

@@ -26,9 +26,13 @@ class AddressBook_Installer extends Zikula_AbstractInstaller
      */
     public function install()
     {
+        // create table
         try {
-            DoctrineUtil::createTablesFromModels('AddressBook');
+            DoctrineHelper::createSchema($this->entityManager, array(
+                'AddressBook_Entity_Addresses'
+            ));
         } catch (Exception $e) {
+            LogUtil::registerStatus($e->getMessage());
             return false;
         }
        
@@ -230,7 +234,9 @@ class AddressBook_Installer extends Zikula_AbstractInstaller
     function uninstall()
     {
 
-        DoctrineUtil::dropTable('addressbook');
+        DoctrineHelper::dropSchema($this->entityManager, array(
+            'AddressBook_Entity_Addresses'
+        ));
 
         
         

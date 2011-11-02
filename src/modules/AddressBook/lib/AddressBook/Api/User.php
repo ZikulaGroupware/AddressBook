@@ -26,7 +26,7 @@ class AddressBook_Api_User extends Zikula_AbstractApi
 
     public function getAddress($pid)
     {
-        return Doctrine_Core::getTable('AddressBook_Model_Addresses')->findOneBy('pid', $pid, Doctrine_Core::HYDRATE_ARRAY);
+        return $this->entityManager->find('AddressBook_Entity_Addresses', $pid)->getAll();
     }
 
     /**
@@ -39,29 +39,32 @@ class AddressBook_Api_User extends Zikula_AbstractApi
     public function getAddresses($args)
     {
         extract($args);
+        
         if(empty($orderBy)) {
-            $orderBy = 'firstname';
+            $orderBy = 'a.firstname';
         }
-        $q = Doctrine_Query::create()
-            ->from('AddressBook_Model_Addresses s')
-            ->orderBy($orderBy);
+        
+        
+        $em = $this->getService('doctrine.entitymanager');
+        $qb = $em->createQueryBuilder();
+        $qb->select('a')
+           ->from('AddressBook_Entity_Addresses', 'a')
+           ->orderBy($orderBy);
+
+      
+        
         if(!empty($letter)) {
-            $q->where(
-                'firstname like ? or firstname like ?',
-                array($letter.'%', strtoupper($letter).'%')
-            );
+            $qb->where('a.firstname like :firstname1 or a.firstname like :firstname2')
+               ->setParameter('firstname1', $letter.'%')
+               ->setParameter('firstname2', '%'.strtoupper($letter).'%');
         }
         if(!empty($name)) {
-            $q->addWhere(
-                'firstname like ? or firstname like ?',
-                array('%'.$name.'%', '%'.$name.'%')
-            );
+            $qb->andWhere('a.firstname like :firstname3')
+               ->setParameter('firstname3', '%'.$name.'%');
         }
         if(!empty($organisation)) {
-            $q->addWhere(
-                'organisation = ?',
-                array($organisation)
-            );
+            $qb->andWhere('a.organisation = :organisation')
+               ->setParameter('organisation', $organisation);
         }
         /*if(!empty($category)) {
             $q->addWhere(
@@ -69,39 +72,34 @@ class AddressBook_Api_User extends Zikula_AbstractApi
                 '%:"'.$category.'";%'
             );
         }*/
-        $addresses = $q->execute()->toArray();
-        return $addresses;
+        
+        
+        $query = $qb->getQuery();
+        return $query->getArrayResult();
+        
+
     }
     
     
     public function getOrganisations()
     {
-        $q = Doctrine_Query::create()
-            ->from('AddressBook_Model_Addresses s')
-            ->orderBy('organisation')
-            ->groupBy('organisation');
-        $result = $q->execute();
-        $result = $result->toKeyValueArray('organisation', 'organisation');
-        return $this->toDropDownList($result);
+        
+        $em = $this->getService('doctrine.entitymanager');
+        $qb = $em->createQueryBuilder();
+        $qb->select('a.organisation')
+           ->from('AddressBook_Entity_Addresses', 'a')
+           ->orderBy('a.organisation')
+           ->groupBy('a.organisation');
+        $query = $qb->getQuery();
+        $result = $query->getArrayResult();
+        return $this->toDropDownList($result, 'organisation');
     }
     
     public function getCategories()
     {
-        $q = Doctrine_Query::create()->from('AddressBook_Model_Addresses s');      
-        $result = $q->execute();
-        $result->toArray();        
-
-        $categories = array();
-        foreach($result as $value) {
-            $categories =  array_merge($categories,$value['categories']);
-        }
-        $categories = array_unique($categories);
-        sort($categories);
-        
-        return $this->toDropDownList($categories);
     }
     
-    public function toDropDownList($input) {
+    public function toDropDownList($input, $col) {
         $dropdownlist[] = array(
             'text' => $this->__('All'),
             'value' => '',  
@@ -110,8 +108,8 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         foreach($input as $key => $value) {
             if(!empty($value)) {
                 $dropdownlist[] = array(
-                    'text' => $value,
-                    'value' => $value,             
+                    'text' => $value[$col],
+                    'value' => $value[$col],             
                 );
             }
         }
