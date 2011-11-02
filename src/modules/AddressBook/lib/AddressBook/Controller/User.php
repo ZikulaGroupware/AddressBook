@@ -29,13 +29,13 @@ class AddressBook_Controller_User extends Zikula_AbstractController {
     public function viewAll()
     {
         
-        $form = FormUtil::newForm('AddressBook', $this);
+        $form = FormUtil::newForm($this->name, $this);
         return $form->execute('user/viewAll.tpl', new AddressBook_Handler_ViewAll());
     }
     
     public function modify()
     {
-        $form = FormUtil::newForm('AddressBook', $this);
+        $form = FormUtil::newForm($this->name, $this);
         return $form->execute('user/modify.tpl', new AddressBook_Handler_Modify());
     }
     
@@ -43,7 +43,7 @@ class AddressBook_Controller_User extends Zikula_AbstractController {
     {
         // Permission check
         $this->throwForbiddenUnless(
-            SecurityUtil::checkPermission('Wikula::', '::', ACCESS_ADMIN)
+            SecurityUtil::checkPermission('AddressBook::', '::', ACCESS_ADMIN)
         );
 
         if(

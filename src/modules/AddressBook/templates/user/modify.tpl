@@ -1,3 +1,9 @@
+<h2>
+    <a href="{modurl modname="AddressBook" type='user' func='main'}">{gt text='Address Book'}</a> &#187;
+    {$firstname} {$lastname}
+</h2>
+
+
 {ajaxheader modname=AddressBook filename=addressbook.js noscriptaculous=true effects=true}
 {form cssClass="z-form"}
 {formtabbedpanelset}

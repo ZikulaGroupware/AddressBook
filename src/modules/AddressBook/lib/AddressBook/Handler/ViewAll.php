@@ -27,7 +27,7 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
         if(is_array($organisation)){
             $organisation = $organisation[0];
         }
-        $category = FormUtil::getPassedValue('category');
+        $category = FormUtil::getPassedValue('category', 'all');
         if(is_array($category)){
             $category = $category[0];
         }
@@ -49,8 +49,8 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
         $organisations = ModUtil::apiFunc($this->name,'user','getOrganisations');
         $this->view->assign('organisations', $organisations);
         
-        $categories = ModUtil::apiFunc($this->name,'user','getCategories');
-        $this->view->assign('categories', $categories);
+       // $categories = ModUtil::apiFunc($this->name,'user','getCategories');
+        //$this->view->assign('categories', $categories);
         
         return true;
     }
@@ -76,7 +76,7 @@ class AddressBook_Handler_ViewAll  extends Zikula_Form_AbstractHandler
             'letter' => $letter,
             'name' => $name,
             'organisation' => $organisation,
-            'category' => $category
+           // 'category' => $category
         ) );
         $this->view->assign('addresses', $addresses);      
 

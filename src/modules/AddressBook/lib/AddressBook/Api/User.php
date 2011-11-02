@@ -63,12 +63,12 @@ class AddressBook_Api_User extends Zikula_AbstractApi
                 array($organisation)
             );
         }
-        if(!empty($category)) {
+        /*if(!empty($category)) {
             $q->addWhere(
                 'categories like ?',
                 '%:"'.$category.'";%'
             );
-        }
+        }*/
         $addresses = $q->execute()->toArray();
         return $addresses;
     }
@@ -123,7 +123,7 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         if(!is_numeric($dayslater)) {
             $dayslater = 7;
         }
-        $sql = 'select * from adddressbook_addresses '.
+        $sql = 'select * from addressbook '.
                'WHERE DATE_FORMAT(bday, \'%m%d\') BETWEEN '.date('md').' AND '.date('md', strtotime("+$dayslater days")).'  AND bday <> \'0000-00-00\''.
                'ORDER BY DATE_FORMAT(bday, \'%m%d\')';
         $res = DBUtil::executeSQL($sql);

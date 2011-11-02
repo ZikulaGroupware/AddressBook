@@ -29,6 +29,11 @@ class AddressBook_Api_Admin extends Zikula_AbstractApi
                 'text' => __('Settings'),
                 'class' => 'z-icon-es-config'
             );
+            $links[] = array(
+                'url' => ModUtil::url($this->name, 'admin', 'importCSV'),
+                'text' => __('Import CSV'),
+                'class' => 'z-icon-es-import'
+            );
         }
 
         return $links;
