@@ -106,7 +106,7 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         );
         
         foreach($input as $key => $value) {
-            if(!empty($value)) {
+            if(!empty($value[$col])) {
                 $dropdownlist[] = array(
                     'text' => $value[$col],
                     'value' => $value[$col],             
@@ -116,18 +116,27 @@ class AddressBook_Api_User extends Zikula_AbstractApi
         return $dropdownlist;
     }
     
-    public function getBirthdays($dayslater) {
+    public function getBirthdays($dayslater = 7) {
         
         if(!is_numeric($dayslater)) {
             $dayslater = 7;
         }
-        $sql = 'select * from addressbook '.
-               'WHERE DATE_FORMAT(bday, \'%m%d\') BETWEEN '.date('md').' AND '.date('md', strtotime("+$dayslater days")).'  AND bday <> \'0000-00-00\''.
-               'ORDER BY DATE_FORMAT(bday, \'%m%d\')';
-        $res = DBUtil::executeSQL($sql);
-        $res = DBUtil::marshallObjects($res);
-        return $res;
         
+        $rsm = new Doctrine\ORM\Query\ResultSetMapping;
+        $rsm->addEntityResult('AddressBook_Entity_Addresses', 'a');
+        $rsm->addFieldResult('a', 'pid', 'pid');
+        $rsm->addFieldResult('a', 'firstname', 'firstname');
+        $rsm->addFieldResult('a', 'lastname', 'lastname');
+        $rsm->addFieldResult('a', 'bday', 'bday');
+
+        $em = $this->getService('doctrine.entitymanager');
+        $sql = 'SELECT pid, firstname, lastname, bday '.
+               'FROM addressbook '.
+               "WHERE DATE_FORMAT(bday, '%m%d') BETWEEN ".date('md').' AND '.date('md', strtotime("+$dayslater days")).' '.
+               'ORDER BY DATE_FORMAT(bday, \'%m%d\')';
+        $query = $em->createNativeQuery($sql, $rsm);
+        
+        return $query->getArrayResult();        
 
     }
 
