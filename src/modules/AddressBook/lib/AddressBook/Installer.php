@@ -56,7 +56,7 @@ class AddressBook_Installer extends Zikula_AbstractInstaller
     function upgrade($oldversion)
     {
 
-       /* $prefix = pnConfigGetVar('prefix');
+       /* $prefix = System::getVar('prefix');
 
         switch($oldversion) {
             case 1.0:
@@ -86,7 +86,7 @@ class AddressBook_Installer extends Zikula_AbstractInstaller
 /*
     function migratecategories()
     {
-        $dbprefix = pnConfigGetVar('prefix');
+        $dbprefix = System::getVar('prefix');
 
         // pull old category values
         $sql = "SELECT cat_id, cat_name FROM {$dbprefix}_addressbook_categories";
@@ -164,7 +164,7 @@ class AddressBook_Installer extends Zikula_AbstractInstaller
 
     function migratecategories()
     {
-        $dbprefix = pnConfigGetVar('prefix');
+        $dbprefix = System::getVar('prefix');
 
         // pull old prefix values
         $sql = "SELECT pre_id, pre_name FROM {$dbprefix}_addressbook_prefixes";
