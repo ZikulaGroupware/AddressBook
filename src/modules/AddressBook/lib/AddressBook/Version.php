@@ -28,10 +28,10 @@ class AddressBook_Version extends Zikula_AbstractVersion
         $meta = array();
         $meta['name']             = 'AddressBook';
         $meta['oldnames']         = array('Addressbook');
-        $meta['displayname']      = __('Address book');
-        $meta['url']              = __('addressbook');
+        $meta['displayname']      = $this->__('Address book');
+        $meta['url']              = $this->__('addressbook');
         $meta['version']          = '2.0.0';
-        $meta['description']      = __('A module to store contacts (names, emails addresses, phone numbers, ...) ');
+        $meta['description']      = $this->__('A module to store contacts (names, emails addresses, phone numbers, ...) ');
         $meta['credits']          = 'docs/credits.txt';
         $meta['help']             = 'docs/help.txt';
         $meta['changelog']        = 'docs/changelog.txt';
